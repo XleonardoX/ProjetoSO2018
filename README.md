@@ -1,2 +1,2 @@
 # ProjetoSO2018
-repositório pra projeto da disciplina de sistemas operacionaia
+repositório pra projeto da disciplina de sistemas operacionais
