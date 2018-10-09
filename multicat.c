@@ -53,7 +53,8 @@ int main(int argc, char *argv[]){
          double time_SEC = (clock() - start_time) / (double)CLOCKS_PER_SEC;  //tempo total de execução
 
          printf("Tempo de execução = %f segundos.\n",time_SEC);
-         pthread_exit(NULL);
+         //pthread_exit(NULL);
+         free(x);
     
     return 0;
 }
@@ -104,10 +105,6 @@ void Ordena(Multicat * p, int ini, int fim){   //função para ordenação
                     p->v[i+1] = aux;
                  }
               }
-         }
-
-         for(i=0; i<fim; i++){
-             printf("%d\n", p->v[i]);
          }  
       
   Salva_Arq_Out(p);
