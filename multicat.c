@@ -63,13 +63,13 @@ int main(int argc, char *argv[]){
 void *Multicat_integer(Multicat *z){  //le os arquivos e grava os inteiros num vetor desordenado
     
          FILE *f;
-         char aux[10];
+         int aux;
          int j=0;
          z->top=0;       //inicia top para acompanhar o tamanho do vetor
     
          for(int i=0; i<(z->argumentos)-3; i++){        //desconsidera os comandos "./multicat" "Num threads" "arqSaida.out"
-              f = fopen((z->arquivo[i]),"r");
-              while(fgets(aux,9,f)!=NULL){              //para saber o tamanho do vetor que deve ser alocado           
+              f = fopen((z->arquivo[i]),"r");           //EOF representa o fim do arquivo de entrada
+              while(fscanf(f,"%d\n",&aux)!=EOF){        //para saber o tamanho do vetor que deve ser alocado           
                     z->top++;                           //apos passar por todos arquivos de entrada
               }
            fclose(f);
@@ -79,9 +79,8 @@ void *Multicat_integer(Multicat *z){  //le os arquivos e grava os inteiros num v
 
          for(int i=0; i<(z->argumentos)-3; i++){        //desconsidera os comandos "./multicat" "Num threads" "arqSaida.out"
               f = fopen((z->arquivo[i]),"r");
-              while(fgets(aux,9,f)!=NULL){                   
-                   z->v[j] = atoi(aux);
-                   //printf("%d  ", z->v[j]);
+              while(fscanf(f,"%d\n",&aux)!=EOF){                   
+                   z->v[j] = aux;
                    j++;
               }
            fclose(f);
