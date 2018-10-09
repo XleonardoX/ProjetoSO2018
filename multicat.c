@@ -34,9 +34,9 @@ int main(int argc, char *argv[]){
             return 0;                                                    
          }
     
-         time_t T_Entrada, T_Saida;             //variaveis para verificar o tempo de execução
-         time(&T_Entrada);
-         
+         clock_t start_time;    //para medir o tempo de execução
+         start_time = clock();   
+
          Num_de_threads = atoi(argv[1]);        //argumento 1 referente ao numero de threads
          pthread_t threads[Num_de_threads];     //vetor de threads
          
@@ -50,9 +50,9 @@ int main(int argc, char *argv[]){
          //     pthread_join(threads[i],NULL); //A funcao bloqueia o processo ate que o thread indicado termine
          //}
          Multicat_integer(x); 
-         time(&T_Saida);
-        
-         printf("Tempo de execução = %lds\n",(T_Saida-T_Entrada));
+         double time_SEC = (clock() - start_time) / (double)CLOCKS_PER_SEC;  //tempo total de execução
+
+         printf("Tempo de execução = %f segundos.\n",time_SEC);
          pthread_exit(NULL);
     
     return 0;
