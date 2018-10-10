@@ -33,27 +33,30 @@ int main(int argc, char *argv[]){
             printf("Comando insuficiente para execução do programa\n");  //"./multicat 16 arq1.in arqSaida.out"
             return 0;                                                    
          }
-    
-         clock_t start_time;    //para medir o tempo de execução
-         start_time = clock();   
-
+         
          Num_de_threads = atoi(argv[1]);        //argumento 1 referente ao numero de threads
          pthread_t threads[Num_de_threads];     //vetor de threads
          
          for(i=0; i<((x->argumentos)-2); i++){
               strcpy(x->arquivo[i],argv[i+2]);
          }
-         //for(i=0; i<Num_de_threads; i++){
-         //   pthread_create(&threads[i],NULL,Multicat_integer,NULL);    
-         //}
-         //for (i=0;i<Num_de_threads;i++){
-         //     pthread_join(threads[i],NULL); //A funcao bloqueia o processo ate que o thread indicado termine
-         //}
-         Multicat_integer(x); 
+         for(i=0; i<Num_de_threads; i++){
+            pthread_create(&threads[i],NULL,Multicat_integer,(void *)x);    
+         }
+         clock_t start_time;    //para medir o tempo de execução
+         start_time = clock(); 
+         
+         for (i=0;i<Num_de_threads;i++){
+              pthread_join(threads[i],NULL); //A funcao bloqueia o processo ate que o thread indicado termine
+         }
+
+         Ordena(x ,0, (x->top));
+         Salva_Arq_Out(x);
+
          double time_SEC = (clock() - start_time) / (double)CLOCKS_PER_SEC;  //tempo total de execução
 
-         printf("Tempo de execução = %f segundos.\n",time_SEC);
-         //pthread_exit(NULL);
+         printf("Tempo de execução usando %d threads: %f segundos.\n", Num_de_threads, time_SEC);
+         pthread_exit(NULL);
          free(x);
     
     return 0;
@@ -86,9 +89,7 @@ void *Multicat_integer(Multicat *z){  //le os arquivos e grava os inteiros num v
               }
            fclose(f);
          } 
-
-    Ordena(z ,0, (z->top));
-
+        
 }
 
 //================================================================================================================================
@@ -106,9 +107,7 @@ void Ordena(Multicat * p, int ini, int fim){   //função para ordenação
                  }
               }
          }  
-      
-  Salva_Arq_Out(p);
-
+        
 }
 
 //===============================================================================================================================
