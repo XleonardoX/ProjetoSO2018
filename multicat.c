@@ -38,7 +38,7 @@ int main(int argc, char *argv[]){
          Num_de_threads = atoi(argv[1]);        //argumento 1 referente ao numero de threads
          pthread_t threads[Num_de_threads];     //vetor de threads
          
-         for(i=0; i<((x->argumentos)/2); i++){
+         for(i=0; i<((x->argumentos)-2); i++){
               strcpy(x->arquivo[i],argv[i+2]);
          }
          
