@@ -99,7 +99,7 @@ void *Multicat_integer(Multicat *z){  //le os arquivos e grava os inteiros num v
 void *Ordena(void *p){
          int aux, i, j;
 
-         for(j=(((Multicat *)p)->top-1); j>0; j--){      //Ordenação Bublle Sort
+         for(j=(((Multicat *)p)->top-1); j>0; j--){      //Ordenação Bubble Sort
               for(i=0; i<j; i++){
                  if(((Multicat *)p)->v[i] > ((Multicat *)p)->v[i+1]){
                     aux = ((Multicat *)p)->v[i];
